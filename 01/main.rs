@@ -1,7 +1,7 @@
 use std::fs;
 use std::error::Error;
 
-const INPUT_FILENAME: &str = "input.txt";
+const INPUT_FILENAME: &str = "01/input.txt";
 
 fn main() -> Result<(), Box<dyn Error>> {
     let file_content = fs::read_to_string(INPUT_FILENAME)?;
