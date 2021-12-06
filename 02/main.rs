@@ -1,5 +1,5 @@
-use std::fs;
 use std::error::Error;
+use std::fs;
 use std::str::FromStr;
 
 const INPUT_FILENAME: &str = "02/input.txt";
@@ -21,21 +21,24 @@ impl FromStr for Command {
             "forward" => Ok(Forward(n)),
             "down" => Ok(Down(n)),
             "up" => Ok(Up(n)),
-            _ => Err("bad command name")?
+            _ => Err("bad command name")?,
         }
     }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
     let file_content = fs::read_to_string(INPUT_FILENAME)?;
-    let commands: Vec<Command> = file_content.lines().map(|l| l.parse()).collect::<Result<_, _>>()?;
+    let commands: Vec<Command> = file_content
+        .lines()
+        .map(|l| l.parse())
+        .collect::<Result<_, _>>()?;
 
     use Command::*;
     let horizontal_pos: i32 = commands
         .iter()
         .map(|c| match c {
-             Forward(n) => *n,
-             _ => 0
+            Forward(n) => *n,
+            _ => 0,
         })
         .sum();
 
@@ -44,10 +47,15 @@ fn main() -> Result<(), Box<dyn Error>> {
         .map(|c| match c {
             Down(n) => *n,
             Up(n) => -n,
-            _ => 0
+            _ => 0,
         })
         .sum();
-    println!("part1 result: {} * {} = {}", horizontal_pos, depth, horizontal_pos * depth);
+    println!(
+        "part1 result: {} * {} = {}",
+        horizontal_pos,
+        depth,
+        horizontal_pos * depth
+    );
 
     // no fancy iterator :'(
     let mut aim = 0;
@@ -59,7 +67,12 @@ fn main() -> Result<(), Box<dyn Error>> {
             Forward(n) => depth += aim * n,
         }
     }
-    println!("part2 result: {} * {} = {}", horizontal_pos, depth, horizontal_pos * depth);
+    println!(
+        "part2 result: {} * {} = {}",
+        horizontal_pos,
+        depth,
+        horizontal_pos * depth
+    );
 
     Ok(())
 }

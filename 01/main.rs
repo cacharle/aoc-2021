@@ -1,5 +1,5 @@
-use std::fs;
 use std::error::Error;
+use std::fs;
 
 const INPUT_FILENAME: &str = "01/input.txt";
 

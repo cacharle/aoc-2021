@@ -1,7 +1,7 @@
-use std::fs;
-use std::error::Error;
-use std::str::FromStr;
 use std::collections::HashMap;
+use std::error::Error;
+use std::fs;
+use std::str::FromStr;
 
 const INPUT_FILENAME: &str = "05/input.txt";
 
@@ -54,7 +54,7 @@ impl Segment {
                 } else {
                     (-1, 0)
                 }
-            },
+            }
             Vertical => {
                 if self.y1 < self.y2 {
                     (0, 1)
@@ -108,7 +108,20 @@ fn main() -> Result<(), Box<dyn Error>> {
         .map(|l| l.parse())
         .collect::<Result<_, _>>()?;
 
-    println!("part1 result: {}", count_danger_zones(&segments, &[Direction::Horizontal, Direction::Vertical]));
-    println!("part2 result: {}", count_danger_zones(&segments, &[Direction::Horizontal, Direction::Vertical, Direction::Diagonal]));
+    println!(
+        "part1 result: {}",
+        count_danger_zones(&segments, &[Direction::Horizontal, Direction::Vertical])
+    );
+    println!(
+        "part2 result: {}",
+        count_danger_zones(
+            &segments,
+            &[
+                Direction::Horizontal,
+                Direction::Vertical,
+                Direction::Diagonal
+            ]
+        )
+    );
     Ok(())
 }

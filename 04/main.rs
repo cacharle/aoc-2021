@@ -1,5 +1,5 @@
-use std::fs;
 use std::error::Error;
+use std::fs;
 use std::str::FromStr;
 
 const INPUT_FILENAME: &str = "04/input.txt";
@@ -17,8 +17,8 @@ impl Board {
         let transpose: Vec<Vec<bool>> = (0..BOARD_SIZE)
             .map(|i| self.marks.iter().map(|l| l[i]).collect())
             .collect();
-        self.marks.iter().any(|l| l.iter().all(|m| *m)) ||
-        transpose.iter().any(|l| l.iter().all(|m| *m))
+        self.marks.iter().any(|l| l.iter().all(|m| *m))
+            || transpose.iter().any(|l| l.iter().all(|m| *m))
     }
 
     fn mark(&mut self, num: u32) {
@@ -32,7 +32,8 @@ impl Board {
     }
 
     fn score(&self, num: u32) -> u32 {
-        let sum: u32 = self.nums
+        let sum: u32 = self
+            .nums
             .iter()
             .flatten()
             .zip(self.marks.iter().flatten())
@@ -48,12 +49,17 @@ impl FromStr for Board {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let nums: Vec<Vec<u32>> = s
             .lines()
-            .map(|l| l.split_whitespace()
-                      .map(|n| n.parse())
-                      .collect::<Result<_, _>>())
+            .map(|l| {
+                l.split_whitespace()
+                    .map(|n| n.parse())
+                    .collect::<Result<_, _>>()
+            })
             .collect::<Result<_, _>>()?;
         let len = nums.len();
-        Ok(Board { nums, marks: vec![vec![false; len]; len] })
+        Ok(Board {
+            nums,
+            marks: vec![vec![false; len]; len],
+        })
     }
 }
 

@@ -4,6 +4,7 @@ BINDIR = bin
 
 SRCDIRS = $(shell find . -maxdepth 1 -name '[0-9][0-9]')
 MAIN = main.rs
+MAINS = $(addsuffix /$(MAIN),$(SRCDIRS))
 OPTLEVEL = 0
 
 BINS = $(SRCDIRS:%=$(BINDIR)/%)
@@ -15,6 +16,9 @@ $(BINDIR)/%: %
 
 $(BINDIR):
 	mkdir $@
+
+fmt: $(MAINS)
+	rustfmt $^
 
 clean:
 	rm $(BINS)
