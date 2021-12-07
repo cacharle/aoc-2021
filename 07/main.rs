@@ -7,7 +7,6 @@ const INPUT_FILENAME: &str = "07/input.txt";
 #[derive(Clone)]
 struct Crabs(Vec<i32>);
 
-use std::cmp::min;
 impl Crabs {
     fn fuel_cost_part1(&self, pos: i32) -> i32 {
         self.0.iter().map(|p| (p - pos).abs()).sum()
@@ -18,12 +17,19 @@ impl Crabs {
      *       right now, we need -O3, it taks 45s with -O0
      * f(x) = f(x - 1) + 1
      * f(1) = 1
+     * Indeed: it's just the triangular numbers (thx Maxime)
      */
     fn fuel_cost_part2(&self, pos: i32) -> i32 {
         self.0
             .iter()
-            .map(|p| (1..(p - pos).abs() + 1).sum::<i32>())
+            // previous solution in O(n^2) .map(|p| (1..(p - pos).abs() + 1).sum::<i32>())
+            .map(|p| Crabs::triangular((p - pos).abs()))
             .sum()
+    }
+
+    fn triangular(n: i32) -> i32 {
+        let n = n + 1;
+        (n * (n - 1)) / 2
     }
 }
 
