@@ -20,6 +20,13 @@ $(BINDIR):
 fmt: $(MAINS)
 	rustfmt $^
 
+run: $(BINS)
+	for b in $(BINS); \
+	do \
+		echo ==================== Day $$(basename $$b) ====================; \
+		./$$b; \
+	done
+
 clean:
 	rm $(BINS)
 	rmdir $(BINDIR)

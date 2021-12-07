@@ -50,12 +50,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             _ => 0,
         })
         .sum();
-    println!(
-        "part1 result: {} * {} = {}",
-        horizontal_pos,
-        depth,
-        horizontal_pos * depth
-    );
+    println!("part1 result: {}", horizontal_pos * depth);
 
     // no fancy iterator :'(
     let mut aim = 0;
@@ -67,12 +62,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             Forward(n) => depth += aim * n,
         }
     }
-    println!(
-        "part2 result: {} * {} = {}",
-        horizontal_pos,
-        depth,
-        horizontal_pos * depth
-    );
+    println!("part2 result: {}", horizontal_pos * depth);
 
     Ok(())
 }

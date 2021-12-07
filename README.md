@@ -2,4 +2,11 @@
 
 <https://adventofcode.com/>
 
-Run `make` and all the executable are in `bin/`.
+Advant calendar but you replace the chocolate with programming problems.
+
+# Usage
+
+```
+$ make
+$ make run
+```
