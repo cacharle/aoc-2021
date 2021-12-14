@@ -22,7 +22,7 @@ impl Crabs {
     fn fuel_cost_part2(&self, pos: i32) -> i32 {
         self.0
             .iter()
-            // previous solution in O(n^2) .map(|p| (1..(p - pos).abs() + 1).sum::<i32>())
+            // previous solution in O(n^2): .map(|p| (1..(p - pos).abs() + 1).sum::<i32>())
             .map(|p| Crabs::triangular((p - pos).abs()))
             .sum()
     }
