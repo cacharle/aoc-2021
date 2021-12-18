@@ -6,17 +6,10 @@ use std::str::FromStr;
 
 const INPUT_FILENAME: &str = "12/input.txt";
 
-// #[derive(Debug)]
 struct CaveGraph {
     edges: Vec<Vec<bool>>,
     nodes: Vec<String>,
 }
-
-// #[derive(Clone)]
-// struct Cave {
-//     name: String,
-//     children: Vec<Box<Cave>>,
-// }
 
 impl fmt::Debug for CaveGraph {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -121,9 +114,7 @@ fn has_visited_small_cave_two_times(current_path: &[String]) -> bool {
 }
 
 fn explore_part2(graph: &CaveGraph, name: &str, mut current_path: Vec<String>) -> Vec<Vec<String>> {
-    if CaveGraph::is_small_cave(&name)
-        && has_visited_small_cave_two_times(&current_path)
-    {
+    if CaveGraph::is_small_cave(&name) && has_visited_small_cave_two_times(&current_path) {
         return vec![];
     }
     current_path.push(name.to_string());
@@ -133,7 +124,12 @@ fn explore_part2(graph: &CaveGraph, name: &str, mut current_path: Vec<String>) -
     }
     let mut paths = Vec::new();
     for child_name in graph.children(name) {
-        if current_path.iter().filter(|&p| CaveGraph::is_small_cave(&child_name) && p == &child_name).count() > 1 {
+        if current_path
+            .iter()
+            .filter(|&p| CaveGraph::is_small_cave(&child_name) && p == &child_name)
+            .count()
+            > 1
+        {
             continue;
         }
         if child_name == "start" {

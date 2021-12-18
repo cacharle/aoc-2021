@@ -21,7 +21,7 @@ fmt: $(MAINS)
 	rustfmt $^
 
 run: $(BINS)
-	for b in $(BINS); \
+	@for b in $(sort $(BINS)); \
 	do \
 		echo ==================== Day $$(basename $$b) ====================; \
 		./$$b; \
